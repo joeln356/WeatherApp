@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  /* Primary */
+  --primary-purple:        #8B5CF6;
+  --primary-violet:        #7C3AED;
+  --primary-indigo:        #4F46E5;
+
+  /* Accent */
+  --accent-sky:            #38BDF8;
+  --accent-lavender:       #A78BFA;
+  --accent-teal:           #2DD4BF;
+  --accent-amber:          #FBBF24;
+
+  /* Backgrounds */
+  --bg-primary:            #07091E;
+  --bg-navy:               #0F1140;
+  --bg-indigo-night:       #1A0F3C;
+  --bg-base:               #0C1024;
+
+  /* Surfaces */
+  --surface-card:          #111833;
+  --surface-raised:        #0E1529;
+  --surface-muted:         #131A36;
+  --surface-input:         #1E2547;
+
+  /* Glassmorphism */
+  --glass-thin:            rgba(255, 255, 255, 0.05);
+  --glass-medium:          rgba(255, 255, 255, 0.08);
+
+  /* Borders */
+  --border-default:        #2E3A6E;
+  --border-glass:          rgba(255, 255, 255, 0.10);
+  --border-focus:          rgba(139, 92, 246, 0.50);
+
+  /* Text */
+  --text-primary:          #E8EDFF;
+  --text-secondary:        #ffffff66;
+  --text-muted:            #7B90C4;
+
+  /* Weather */
+  --weather-sun:           #FFD700;
+  --weather-thunder:       #FFE44D;
+  --weather-rain:          #7EB3E8;
+  --weather-snow:          #B8D4FF;
+
+  /* Glows */
+  --glow-purple:           #8b5cf64d;
+  --glow-blue:             #38bdf84d;
+
+  /* Gradients */
+  --gradient-forecast-bar: linear-gradient(90deg, #38BDF8, #A78BFA);
+  --gradient-button:       linear-gradient(135deg, #7C3AED, #4F46E5);
+  --gradient-bg:           linear-gradient(-45deg,
+                             #07091E, #0F1140, #1A0F3C,
+                             #0D1A4A, #140830, #0A2040);
+
+  --fonte: "Poppins", sans-serif
+}
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border-color: var(--border-default);
+  user-select: none;
+}
+html{
+  font-size: 16px;
+  font-family: var(--fonte);
+}
+body{
+  background: var(--gradient-bg);
+  height: 100vh;
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+
+}
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%;   }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%;   }
+}
+
+#container{
+  padding: 20px;
+}
+.Search__Grau{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+#Search__Box{
+  border: 2px solid var(--border-default);
+  border-radius: 16px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--glass-thin);
+  width: 60%;
+  max-width: 350px;
+}
+#Search{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--fonte);
+  color: var(--text-primary);
+  font-weight: 700;
+  flex: 1;
+  min-width: 0;
+}
+#Search::placeholder{
+  color: var(--text-secondary);
+  font-weight: 500;
+
+}
+.fa-magnifying-glass{
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+#graus{
+  display: flex;
+  border: 2px solid var(--border-default);
+  border-radius: 16px;
+  background-color: var(--glass-thin);
+  padding: 7px 7px;
+  color: var(--text-secondary);
+}
+#celsius, #fahrenheit{
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  
+}
+.grauAtivo{
+  color: var(--text-primary);
+  background: var(--gradient-button);
+  box-shadow: 0px 0px 12px #7C3AED;
+}
