@@ -140,5 +140,5 @@ body{
 .grauAtivo{
   color: var(--text-primary);
   background: var(--gradient-button);
-  box-shadow: 0px 0px 12px #7C3AED;
+  box-shadow: 0px 0px 12px var(--primary-violet);
 }
