@@ -55,45 +55,38 @@ function animar() {
     mouseX, mouseY, 280     // círculo externo: raio 280px
     );
 
-    glow.addColorStop(0,   "rgba(139, 92, 246, 0.07)"); // roxo a 7%
-    glow.addColorStop(1,   "rgba(139, 92, 246, 0.00)"); // transparente
+    glow.addColorStop(0,   "rgba(138, 92, 246, 0.07)"); // roxo a 7%
+    glow.addColorStop(1,   "rgba(138, 92, 246, 0)"); // transparente
 
     ctx.fillStyle = glow;
-    ctx.fillRect(0, 0, W, H);   // pinta sobre TODO o canvas
+    ctx.fillRect(0, 0, W, H);   
 
     particulas.forEach(p => {
 
     // Move a partícula somando a velocidade à posição
     p.x += p.vx;
-    p.y += p.vy;   // vy é negativo → y diminui → sobe na tela
+    p.y += p.vy;
 
-    // Quando sai pelo topo (y < -10), reposiciona na base
     if (p.y < -10) {
-        p.y  = H + 10;             // começa logo abaixo da tela
-        p.x  = Math.random() * W;  // em posição X aleatória
+        p.y  = H + 10;            
+        p.x  = Math.random() * W;  
     }
 
-    // Quando sai pelas laterais, aparece no lado oposto (loop)
     if (p.x < -10)    p.x = W + 10;
     if (p.x > W + 10) p.x = -10;
 
-    // Desenha o círculo
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
 
-    // Concatena a string de cor com a opacidade e fecha o rgba()
-    // Ex: "rgba(139, 92, 246," + 0.3 + ")" = "rgba(139, 92, 246, 0.3)"
     ctx.fillStyle = p.color + p.opacity + ")";
 
     ctx.fill();
     });
 
-    // Agenda o próximo frame (~16ms depois = ~60fps)
     requestAnimationFrame(animar);
 }
-
-// Dispara o loop
 animar();
+
 window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
