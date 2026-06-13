@@ -49,7 +49,7 @@
   --glow-blue:             #38bdf84d;
 
   /* Gradients */
-  --gradient-forecast-bar: linear-gradient(90deg, #38BDF8, #A78BFA);
+  --gradient-forecast-bar: linear-gradient(135deg, #64a0ff1f, #ffc83214),#ffffff14;
   --gradient-button:       linear-gradient(135deg, #7C3AED, #4F46E5);
   --gradient-bg:           linear-gradient(-45deg,
                              #07091E, #0F1140, #1A0F3C,
@@ -73,6 +73,7 @@ body{
   height: 100vh;
   background-size: 400% 400%;
   animation: gradientShift 18s ease infinite;
+  color: var(--text-secondary);
 
 }
 @keyframes gradientShift {
@@ -148,4 +149,26 @@ body{
   color: var(--text-primary);
   background: var(--gradient-button);
   box-shadow: 0px 0px 12px var(--primary-violet);
+}
+/* Cidade atual */
+#cidade__atual{
+  margin-top: 20px;
+  border: 3px solid var(--border-default);
+  padding: 15px 20px;
+  border-radius: 30px;
+  background: var(--gradient-forecast-bar);
+  backdrop-filter: blur(10px);
+}
+#data__hora{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+#data__atual{
+  font-size: 14px;
+}
+
+#hora{
+  font-size: 14.2px;
 }

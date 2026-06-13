@@ -95,3 +95,61 @@ window.addEventListener('resize', () => {
       W = canvas.width  = window.innerWidth;
       H = canvas.height = window.innerHeight;
 });
+
+
+// Contaier cidade Atual
+const week = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+];
+
+const month = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
+function mostrarDia(){
+    const agora = new Date();
+    const dataAtual = document.getElementById('data__atual');
+    dataAtual.innerHTML = `${week[agora.getDay()]}, ${month[agora.getMonth()]} ${agora.getDate()}`;
+}
+mostrarDia();
+setInterval(mostrarDia, 86400000);
+
+function mostrarHora(){
+    const agora = new Date();
+    const hora = document.getElementById('hora');
+
+    const h = agora.getHours().toString().padStart(2, '0');
+    const m = agora.getMinutes().toString().padStart(2, '0');
+
+    hora.innerHTML = `${h}:${m} ${agora.getHours() >= 12 ? "PM" : "AM"}`;
+}
+
+function iniciarRelogio(){
+    mostrarHora();
+
+    const agora = new Date();
+    const delay = (60 - agora.getSeconds()) * 1000;
+
+    setTimeout(() => {
+        mostrarHora();
+        setInterval(mostrarHora, 60000);
+    }, delay);
+}
+iniciarRelogio();
