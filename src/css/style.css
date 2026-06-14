@@ -168,7 +168,11 @@ body{
 #data__atual{
   font-size: 14px;
 }
-
 #hora{
   font-size: 14.2px;
+}
+#cidade{
+  color: var(--text-primary);
+  font-weight: 700;
+  margin: 5px 0px;
 }

@@ -179,11 +179,14 @@ async function mostrarLocation(pos){
     .then(res =>res.json())
     .then(res =>{
         const cidade = document.getElementById('cidade')
+        const pais = document.getElementById('pais')
         cidade.innerHTML = res[0].name
+        pais.innerHTML = res[0].state
+        console.log(res[0])
     })
 }
 function erroLocation(){
-    // alert('erro ao obter location\nUse o Chrome')
+    cidade.innerHTML = 'Londres'
     
 }
 
