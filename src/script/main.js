@@ -173,7 +173,7 @@ async function mostrarLocation(pos){
     
     const apiID = 'acd126cb1b8c63520fa45c6f0f32164a';
 
-    const COODS_TO_CITY = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&&appid=${apiID}`;
+    const COODS_TO_CITY = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&appid=${apiID}`;
 
     fetch(COODS_TO_CITY)
     .then(res =>res.json())
@@ -181,17 +181,14 @@ async function mostrarLocation(pos){
         const cidade = document.getElementById('cidade')
         const pais = document.getElementById('pais')
         cidade.innerHTML = res[0].name
-        pais.innerHTML = res[0].state
-        console.log(res[0])
+        pais.innerHTML = res[0].country
+        console.log(res)
     })
 }
-function erroLocation(){
-    cidade.innerHTML = 'Londres'
+function erroLocation(err){
+    alert("algo deu muito errado!! " + err.message)
     
 }
-
-// Pegando dados da API
-
 
 
 
