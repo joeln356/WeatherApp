@@ -173,7 +173,7 @@ async function mostrarLocation(pos){
     
     const apiID = 'acd126cb1b8c63520fa45c6f0f32164a';
 
-    const COODS_TO_CITY = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&&appid=${apiID}`;
+    const COODS_TO_CITY = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&&appid=${apiID}`;
 
     fetch(COODS_TO_CITY)
     .then(res =>res.json())
