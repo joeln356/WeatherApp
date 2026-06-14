@@ -155,7 +155,7 @@ function iniciarRelogio(){
 iniciarRelogio();
 //Obter a cidade atual
 let lat = null
-let lon = null
+let long = null
 
 
 if(navigator.geolocation){
@@ -164,12 +164,33 @@ if(navigator.geolocation){
 }else{
     console.log('Não suportada')
 }
-function mostrarLocation(pos){
+
+
+async function mostrarLocation(pos){
     let coords = pos.coords
     lat = coords.latitude
     long = coords.longitude
+    
+    const apiID = 'acd126cb1b8c63520fa45c6f0f32164a';
+
+    const COODS_TO_CITY = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&&appid=${apiID}`;
+
+    fetch(COODS_TO_CITY)
+    .then(res =>res.json())
+    .then(res =>{
+        const cidade = document.getElementById('cidade')
+        cidade.innerHTML = res[0].name
+    })
 }
 function erroLocation(){
-    alert('erro ao obter location\nUse o Chrome')
+    // alert('erro ao obter location\nUse o Chrome')
     
 }
+
+// Pegando dados da API
+
+
+
+
+// const CITY_TO_COORDS = `http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit={limit}&appid=${apiID}`;
+
