@@ -124,19 +124,19 @@ const month = [
 ];
 
 function mostrarDia(){
-    const agora = new Date();
-    const dataAtual = document.getElementById('data__atual');
+    let agora = new Date();
+    let dataAtual = document.getElementById('data__atual');
     dataAtual.innerHTML = `${week[agora.getDay()]}, ${month[agora.getMonth()]} ${agora.getDate()}`;
 }
 mostrarDia();
 setInterval(mostrarDia, 86400000);
 
 function mostrarHora(){
-    const agora = new Date();
-    const hora = document.getElementById('hora');
+    let agora = new Date();
+    let hora = document.getElementById('hora');
 
-    const h = agora.getHours().toString().padStart(2, '0');
-    const m = agora.getMinutes().toString().padStart(2, '0');
+    let h = agora.getHours().toString().padStart(2, '0');
+    let m = agora.getMinutes().toString().padStart(2, '0');
 
     hora.innerHTML = `${h}:${m} ${agora.getHours() >= 12 ? "PM" : "AM"}`;
 }
@@ -144,8 +144,8 @@ function mostrarHora(){
 function iniciarRelogio(){
     mostrarHora();
 
-    const agora = new Date();
-    const delay = (60 - agora.getSeconds()) * 1000;
+    let agora = new Date();
+    let delay = (60 - agora.getSeconds()) * 1000;
 
     setTimeout(() => {
         mostrarHora();
@@ -153,3 +153,23 @@ function iniciarRelogio(){
     }, delay);
 }
 iniciarRelogio();
+//Obter a cidade atual
+let lat = null
+let lon = null
+
+
+if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(mostrarLocation, erroLocation)
+    
+}else{
+    console.log('Não suportada')
+}
+function mostrarLocation(pos){
+    let coords = pos.coords
+    lat = coords.latitude
+    long = coords.longitude
+}
+function erroLocation(){
+    alert('erro ao obter location\nUse o Chrome')
+    
+}
