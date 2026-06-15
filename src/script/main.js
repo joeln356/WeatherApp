@@ -158,13 +158,6 @@ let lat = null
 let long = null
 
 
-if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(mostrarLocation, erroLocation)
-    
-}else{
-    console.log('Não suportada')
-}
-
 
 async function mostrarLocation(pos){
     let coords = pos.coords
@@ -181,13 +174,21 @@ async function mostrarLocation(pos){
         const cidade = document.getElementById('cidade')
         const pais = document.getElementById('pais')
         cidade.innerHTML = res[0].name
-        pais.innerHTML = res[0].country
+        pais.innerHTML = res[0].state
         console.log(res)
     })
 }
 function erroLocation(err){
     alert("algo deu muito errado!! " + err.message)
     
+}
+
+
+if(navigator.geolocation){
+    navigator.geolocation.watchPosition(mostrarLocation, erroLocation)
+    
+}else{
+    console.log('Não suportada')
 }
 
 
