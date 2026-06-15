@@ -184,12 +184,12 @@ function erroLocation(err){
 }
 
 
-if(navigator.geolocation){
-    navigator.geolocation.watchPosition(mostrarLocation, erroLocation)
+// if(navigator.geolocation){
+//     navigator.geolocation.watchPosition(mostrarLocation, erroLocation)
     
-}else{
-    console.log('Não suportada')
-}
+// }else{
+//     console.log('Não suportada')
+// }
 
 
 
