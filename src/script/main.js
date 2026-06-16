@@ -158,7 +158,7 @@ iniciarRelogio();
 let lat = null
 let long = null
 
-const endpoint = 'http://ip-api.com/json/?fields=lat,lon,country,city,status'
+const endpoint = 'https://ip-api.com/json/?fields=lat,lon,country,city,status'
 
 fetch(endpoint)
     .then(res => res.json())
