@@ -153,45 +153,23 @@ function iniciarRelogio(){
     }, delay);
 }
 iniciarRelogio();
-//Obter a cidade atual
+
+//Obter a localização atual
 let lat = null
 let long = null
 
+const endpoint = 'http://ip-api.com/json/?fields=lat,lon,country,city,status'
 
-
-async function mostrarLocation(pos){
-    let coords = pos.coords
-    lat = coords.latitude
-    long = coords.longitude
-    
-    const apiID = 'acd126cb1b8c63520fa45c6f0f32164a';
-
-    const COODS_TO_CITY = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&appid=${apiID}`;
-
-    fetch(COODS_TO_CITY)
-    .then(res =>res.json())
-    .then(res =>{
-        const cidade = document.getElementById('cidade')
-        const pais = document.getElementById('pais')
-        cidade.innerHTML = res[0].name
-        pais.innerHTML = res[0].state
-        console.log(res)
-    })
-}
-function erroLocation(err){
-    alert("algo deu muito errado!! " + err.message)
-    
-}
-
-
-// if(navigator.geolocation){
-//     navigator.geolocation.watchPosition(mostrarLocation, erroLocation)
-    
-// }else{
-//     console.log('Não suportada')
-// }
-
-
+fetch(endpoint)
+    .then(res => res.json())
+    .then(dados=>{
+    const cidade = document.getElementById('cidade')
+    const pais = document.getElementById('pais')
+    cidade.innerHTML = dados.city
+    pais.innerHTML = dados.country
+    lat = dados.lat
+    long = dados.lon
+})
 
 // const CITY_TO_COORDS = `http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit={limit}&appid=${apiID}`;
 
