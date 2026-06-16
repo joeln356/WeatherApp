@@ -171,5 +171,6 @@ fetch(endpoint)
     long = dados.lon
 })
 
+
 // const CITY_TO_COORDS = `http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit={limit}&appid=${apiID}`;
 
