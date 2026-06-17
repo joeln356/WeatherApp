@@ -35,7 +35,7 @@
 
   /* Text */
   --text-primary:          #E8EDFF;
-  --text-secondary:        #ffffff66;
+  --text-secondary:        #ffffff9a;
   --text-muted:            #7B90C4;
 
   /* Weather */
@@ -175,4 +175,24 @@ body{
   color: var(--text-primary);
   font-weight: 700;
   margin: 5px 0px;
+}
+#pais{
+  font-size: 14.2px;
+}
+#grau__icotempo{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.grau{
+  color: var(--text-primary);
+  font-size: 60px;
+  font-weight: 800;
+}
+.icotempo{
+  margin-right: 25px;
+}
+#nomedoTempo{
+  color: var(--text-secondary);
+  font-size: 17px;
 }

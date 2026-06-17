@@ -156,20 +156,35 @@ iniciarRelogio();
 
 //Obter a localização atual
 let lat = null
-let long = null
+let lon = null
 
-const endpoint = 'https://ip-api.com/json/?fields=lat,lon,country,city,status'
+fetch('http://ip-api.com/json/')
+.then(res => res.json())
+.then(dados => {
 
-fetch(endpoint)
-    .then(res => res.json())
-    .then(dados=>{
-    const cidade = document.getElementById('cidade')
-    const pais = document.getElementById('pais')
-    cidade.innerHTML = dados.city
-    pais.innerHTML = dados.country
-    lat = dados.lat
-    long = dados.lon
+document.getElementById('cidade').innerHTML = dados.city
+document.getElementById('pais').innerHTML = dados.country
+
+lat = dados.lat
+lon = dados.lon
+console.log(lat, lon)
+Current_Weather_Data(lat, lon)
 })
+
+// Obtendo o tempo atual
+const APIkey = 'acd126cb1b8c63520fa45c6f0f32164a'
+
+function Current_Weather_Data(lat, lon){
+    const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric`
+    fetch(URL)
+    .then(res => res.json())
+    .then(res=>{
+        console.log(res)
+        document.getElementById('grau').innerHTML = `${Math.round(res.main.temp)}º`;
+        document.getElementById('nomedoTempo').innerHTML = res.weather[0].description
+    })
+}
+// setInterval(Current_Weather_Data, 1000)
 
 
 // const CITY_TO_COORDS = `http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit={limit}&appid=${apiID}`;
