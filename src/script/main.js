@@ -181,7 +181,12 @@ function Current_Weather_Data(lat, lon){
     .then(res=>{
         console.log(res)
         document.getElementById('grau').innerHTML = `${Math.round(res.main.temp)}º`;
-        document.getElementById('nomedoTempo').innerHTML = res.weather[0].description
+        document.getElementById('nomedoTempo').innerHTML = res.weather[0].description;
+        document.getElementById('ventonum').innerHTML = `${res.wind.speed} m/s`;
+        document.getElementById('feeslike').innerHTML = `${Math.round(res.main.feels_like)}ºC`;
+        document.getElementById('humidade').innerHTML = `${res.main.humidity}%`;
+        let visibilidade  = res.visibility / 1000;
+        document.getElementById('visibilidade').innerHTML = `${visibilidade} Km`;
     })
 }
 // setInterval(Current_Weather_Data, 1000)
