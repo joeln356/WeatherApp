@@ -135,10 +135,11 @@ function mostrarHora(){
     let agora = new Date();
     let hora = document.getElementById('hora');
 
-    let h = agora.getHours().toString().padStart(2, '0');
-    let m = agora.getMinutes().toString().padStart(2, '0');
-
-    hora.innerHTML = `${h}:${m} ${agora.getHours() >= 12 ? "PM" : "AM"}`;
+    hora.innerHTML = agora.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    });
 }
 
 function iniciarRelogio(){
@@ -188,6 +189,10 @@ function Current_Weather_Data(lat, lon){
         document.getElementById('humidade').innerHTML = `${res.main.humidity}%`;
         let visibilidade  = res.visibility / 1000;
         document.getElementById('visibilidade').innerHTML = `${visibilidade} Km`;
+        let iconCode = res.weather[0].icon
+
+        let iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`
+        document.getElementById('icon').src = iconURL
     })
 }
 // setInterval(Current_Weather_Data, 1000)
