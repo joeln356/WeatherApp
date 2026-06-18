@@ -167,7 +167,6 @@ document.getElementById('pais').innerHTML = dados.country
 
 lat = dados.lat
 lon = dados.lon
-console.log(lat, lon)
 Current_Weather_Data(lat, lon)
 })
 
@@ -181,6 +180,8 @@ function Current_Weather_Data(lat, lon){
     .then(res=>{
         console.log(res)
         document.getElementById('grau').innerHTML = `${Math.round(res.main.temp)}º`;
+        document.getElementById('cidade').innerHTML = res.name
+        document.getElementById('pais').innerHTML = res.sys.country
         document.getElementById('nomedoTempo').innerHTML = res.weather[0].description;
         document.getElementById('ventonum').innerHTML = `${res.wind.speed} m/s`;
         document.getElementById('feeslike').innerHTML = `${Math.round(res.main.feels_like)}ºC`;
@@ -190,7 +191,27 @@ function Current_Weather_Data(lat, lon){
     })
 }
 // setInterval(Current_Weather_Data, 1000)
+// Pegar Cidade
+let cidade = null
+
+const form = document.getElementById('Search__Box')
+form.addEventListener('submit', (e)=>{
+    e.preventDefault()
+    cidade = document.getElementById('Search').value
+    console.log(cidade)
+    
+    const URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cidade}&appid=${APIkey}`
+    fetch(URL)
+    .then(res => res.json())
+    .then(res =>{
+
+        lat = res[0].lat
+        lon = res[0].lon
+        Current_Weather_Data(lat, lon)
+
+    })
+})
 
 
-// const CITY_TO_COORDS = `http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit={limit}&appid=${apiID}`;
+// const CITY_TO_COORDS = `http://api.openweathermap.org/geo/1.0/direct?q={city name}&appid=${apiID}`;
 

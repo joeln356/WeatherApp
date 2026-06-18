@@ -110,6 +110,10 @@ body{
   width: 60%;
   max-width: 350px;
 }
+#submit{
+  background-color: transparent;
+  border: none;
+}
 #Search{
   background-color: transparent;
   border: none;
