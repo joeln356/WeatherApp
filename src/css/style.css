@@ -229,14 +229,11 @@ body{
 /* Tempos nas proximas 5 horas */
 #horas{
   margin-top: 20px;
-  border: 3px solid var(--border-default);
   padding: 15px 20px;
   border-radius: 30px;
-  background: var(--gradient-forecast-bar);
   backdrop-filter: blur(10px);
   background: #64a0ff1f;
   border: 3px solid #64a0ff1f;
-  border-radius: 20px;
   overflow: hidden;
 }
 #proximasH{
@@ -272,7 +269,7 @@ body{
   color: var(--text-primary);
   font-weight: 700;
 }
-.hour{
+.hour_3{
   font-size: 13px;
   color: var(--text-secondary);
   font-weight: 600;

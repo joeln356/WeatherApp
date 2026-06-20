@@ -160,44 +160,84 @@ let lat = null
 let lon = null
 
 fetch('http://ip-api.com/json/')
-.then(res => res.json())
-.then(dados => {
+    .then(res => res.json())
+    .then(dados => {
 
 document.getElementById('cidade').innerHTML = dados.city
 document.getElementById('pais').innerHTML = dados.country
 
 lat = dados.lat
 lon = dados.lon
-Current_Weather_Data(lat, lon)
+Current_Weather_Data(lat, lon);
+
+Proximas3H(lat, lon)
 })
 
 // Obtendo o tempo atual
 const APIkey = 'acd126cb1b8c63520fa45c6f0f32164a'
 
-function Current_Weather_Data(lat, lon){
-    const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric`
+function Proximas3H(lat, lon){
+    const URL = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric&cnt=8`;
     fetch(URL)
-    .then(res => res.json())
-    .then(res=>{
-        console.log(res)
-        document.getElementById('grau').innerHTML = `${Math.round(res.main.temp)}º`;
-        document.getElementById('tempoAgora').innerHTML = `${Math.round(res.main.temp)}º`;
-        document.getElementById('cidade').innerHTML = res.name
-        document.getElementById('pais').innerHTML = res.sys.country
-        document.getElementById('nomedoTempo').innerHTML = res.weather[0].description;
-        document.getElementById('nomeAgora').innerHTML = res.weather[0].description;
-        document.getElementById('ventonum').innerHTML = `${res.wind.speed} m/s`;
-        document.getElementById('feeslike').innerHTML = `${Math.round(res.main.feels_like)}ºC`;
-        document.getElementById('humidade').innerHTML = `${res.main.humidity}%`;
-        let visibilidade  = res.visibility / 1000;
-        document.getElementById('visibilidade').innerHTML = `${visibilidade} Km`;
-        let iconCode = res.weather[0].icon
+        .then(res => res.json())
+        .then(res => {
+            console.log(res.list[0])
+            desc = [...document.querySelectorAll('.hourly')]
+            desc.forEach((descri, indice) =>{
+                descri.innerHTML = res.list[indice].weather[0].description
+            })
 
-        let iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-        
-        document.getElementById('icon').src = iconURL;
-        document.getElementById('iconn').src = iconURL
-    })
+            temperaturas = [...document.querySelectorAll('.temp')]
+            temperaturas.forEach((temperatura, indice) =>{
+                temperatura.innerHTML = `${Math.round(res.list[indice].main.temp)}º`;
+            })
+
+            hours = [...document.querySelectorAll('.hour_3')]
+            hours.forEach((hourElement, indice) => {
+                const item = res.list[indice];
+                if (!item) return;
+
+                const data = new Date(item.dt_txt);
+                
+                const horaFormatada = data.toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    hour12: true
+                });
+
+                hourElement.innerHTML = horaFormatada;
+            });
+            icones = [...document.querySelectorAll('#iconn')]
+            icones.forEach((icone, indice) =>{
+                let iconCode = res.list[indice].weather[0].icon
+                let iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+                icone.src = iconURL
+                
+            })
+        })
+}
+
+function Current_Weather_Data(lat, lon){
+    const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric`;
+    fetch(URL)
+        .then(res => res.json())
+        .then(res=>{
+            
+            document.getElementById('grau').innerHTML = `${Math.round(res.main.temp)}º`;
+            document.getElementById('cidade').innerHTML = res.name
+            document.getElementById('pais').innerHTML = res.sys.country
+            document.getElementById('nomedoTempo').innerHTML = res.weather[0].description;
+            
+            document.getElementById('ventonum').innerHTML = `${res.wind.speed} m/s`;
+            document.getElementById('feeslike').innerHTML = `${Math.round(res.main.feels_like)}ºC`;
+            document.getElementById('humidade').innerHTML = `${res.main.humidity}%`;
+            let visibilidade  = res.visibility / 1000;
+            document.getElementById('visibilidade').innerHTML = `${visibilidade} Km`;
+            let iconCode = res.weather[0].icon
+
+            let iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+            
+            document.getElementById('icon').src = iconURL;
+        })
 }
 // setInterval(Current_Weather_Data, 1000)
 // Pegar Cidade
@@ -211,16 +251,12 @@ form.addEventListener('submit', (e)=>{
     
     const URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cidade}&appid=${APIkey}`
     fetch(URL)
-    .then(res => res.json())
-    .then(res =>{
+        .then(res => res.json())
+        .then(res =>{
 
-        lat = res[0].lat
-        lon = res[0].lon
-        Current_Weather_Data(lat, lon)
-
-    })
+            lat = res[0].lat
+            lon = res[0].lon
+            Current_Weather_Data(lat, lon)
+            Proximas3H(lat, lon)
+        })
 })
-
-
-// const CITY_TO_COORDS = `http://api.openweathermap.org/geo/1.0/direct?q={city name}&appid=${apiID}`;
-
