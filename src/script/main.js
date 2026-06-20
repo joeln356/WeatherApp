@@ -249,7 +249,7 @@ form.addEventListener('submit', (e)=>{
     cidade = document.getElementById('Search').value
     console.log(cidade)
     
-    const URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cidade}&appid=${APIkey}`
+    const URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cidade}&appid=${APIkey}`
     fetch(URL)
         .then(res => res.json())
         .then(res =>{
