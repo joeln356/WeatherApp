@@ -181,9 +181,11 @@ function Current_Weather_Data(lat, lon){
     .then(res=>{
         console.log(res)
         document.getElementById('grau').innerHTML = `${Math.round(res.main.temp)}º`;
+        document.getElementById('tempoAgora').innerHTML = `${Math.round(res.main.temp)}º`;
         document.getElementById('cidade').innerHTML = res.name
         document.getElementById('pais').innerHTML = res.sys.country
         document.getElementById('nomedoTempo').innerHTML = res.weather[0].description;
+        document.getElementById('nomeAgora').innerHTML = res.weather[0].description;
         document.getElementById('ventonum').innerHTML = `${res.wind.speed} m/s`;
         document.getElementById('feeslike').innerHTML = `${Math.round(res.main.feels_like)}ºC`;
         document.getElementById('humidade').innerHTML = `${res.main.humidity}%`;
@@ -191,8 +193,10 @@ function Current_Weather_Data(lat, lon){
         document.getElementById('visibilidade').innerHTML = `${visibilidade} Km`;
         let iconCode = res.weather[0].icon
 
-        let iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`
-        document.getElementById('icon').src = iconURL
+        let iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        
+        document.getElementById('icon').src = iconURL;
+        document.getElementById('iconn').src = iconURL
     })
 }
 // setInterval(Current_Weather_Data, 1000)
