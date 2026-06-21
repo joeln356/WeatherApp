@@ -67,7 +67,7 @@
 html{
   font-size: 16px;
   font-family: var(--fonte);
-  
+
 }
 body{
   background: var(--gradient-bg);
@@ -170,7 +170,7 @@ body{
   align-items: center;
   font-weight: 600;
 }
-.data__atual{
+.texto{
   font-size: 14px;
   font-weight: 600;
 }
@@ -227,11 +227,11 @@ body{
   font-weight: 700;
 }
 
-/* Tempos nas proximas 5 horas */
-#horas{
+/* Tempos nas proximas 24h horas */
+.caixa{
   margin-top: 20px;
   padding: 15px 20px;
-  border-radius: 30px;
+  border-radius: 25px;
   backdrop-filter: blur(10px);
   background: #64a0ff1f;
   border: 3px solid #64a0ff1f;
@@ -267,12 +267,35 @@ body{
   font-size: 13px; 
   text-align: center;
 }
-#tempoAgora{
+#tempoAgora, .city, .temperatura{
   color: var(--text-primary);
   font-weight: 700;
 }
-.hour_3{
+.horas{
   font-size: 13px;
   color: var(--text-secondary);
-  font-weight: 600;
+}
+.dados_City{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icon_temp{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.container__cidade{
+  background: var(--gradient-bg);
+  backdrop-filter: blur(10px);
+  border: 3px solid #ffffff14;
+  padding: 16px 15px;
+  border-radius: 15px;
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+  margin-top: 15px;
+}
+.icon{
+  width: 30px;
+  height: 30px;
 }

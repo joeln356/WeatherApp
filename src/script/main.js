@@ -247,7 +247,6 @@ const form = document.getElementById('Search__Box')
 form.addEventListener('submit', (e)=>{
     e.preventDefault()
     cidade = document.getElementById('Search').value
-    console.log(cidade)
     
     const URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cidade}&appid=${APIkey}`
     fetch(URL)
@@ -256,7 +255,38 @@ form.addEventListener('submit', (e)=>{
 
             lat = res[0].lat
             lon = res[0].lon
+            console.log(lat, lon)
             Current_Weather_Data(lat, lon)
             Proximas3H(lat, lon)
         })
 })
+
+const NY = `https://api.openweathermap.org/data/2.5/weather?lat=${40.7127281}&lon=${-74.0060152}&appid=${APIkey}&units=metric`;
+fetch(NY)
+    .then(res => res.json())
+    .then(dados => {
+        console.log(dados)
+        document.getElementById('temp__1').innerHTML = `${Math.round(dados.main.temp)}º`;
+        document.getElementById('desc__1').innerHTML = dados.weather[0].description;
+        document.getElementById('city1').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
+    })
+
+const Osaka = `https://api.openweathermap.org/data/2.5/weather?lat=${34.6937}&lon=${135.5023}&appid=${APIkey}&units=metric`;
+fetch(Osaka)
+    .then(res => res.json())
+    .then(dados => {
+        console.log(dados)
+        document.getElementById('temp__2').innerHTML = `${Math.round(dados.main.temp)}º`;
+        document.getElementById('desc__2').innerHTML = dados.weather[0].description;
+        document.getElementById('city2').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
+    })
+
+const Cape_Town = `https://api.openweathermap.org/data/2.5/weather?lat=${-33.9249}&lon=${18.4241}&appid=${APIkey}&units=metric`;
+fetch(Cape_Town)
+    .then(res => res.json())
+    .then(dados => {
+        console.log(dados)
+        document.getElementById('temp__3').innerHTML = `${Math.round(dados.main.temp)}º`;
+        document.getElementById('desc__3').innerHTML = dados.weather[0].description;
+        document.getElementById('city3').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
+    })
