@@ -177,7 +177,7 @@ Proximas3H(lat, lon)
 const APIkey = 'acd126cb1b8c63520fa45c6f0f32164a'
 
 function Proximas3H(lat, lon){
-    const URL = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric&cnt=8`;
+    const URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric&cnt=8`;
     fetch(URL)
         .then(res => res.json())
         .then(res => {
