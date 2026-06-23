@@ -171,18 +171,56 @@ lon = dados.lon
 Current_Weather_Data(lat, lon);
 
 Proximas3H(lat, lon)
+next5Days(lat, lon)
 })
 
 // Obtendo o tempo atual
 const APIkey = 'acd126cb1b8c63520fa45c6f0f32164a'
+
+function next5Days(lat, lon){
+    const URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric`
+
+    fetch(URL)
+        .then(res => res.json())
+        .then(dados =>{
+            console.log(dados)
+
+            const tempe_max = [...document.querySelectorAll('.temperaturas')]
+            const temp_min = [...document.querySelectorAll('.temp_min')]
+            const dias5_icon = [...document.querySelectorAll('.dias5_icon')]
+            const fiveDays = [...document.querySelectorAll('.dias')]
+
+            dias = [ 8, 16, 24, 32, 39]
+
+            tempe_max.forEach((tempe_max, index) => {
+                const val = dias[index];
+                console.log(val)
+                tempe_max.innerHTML = `${Math.round(dados.list[val].main.temp_max)}º`;
+            });
+
+            temp_min.forEach((temp_min, index)=>{
+                const valor = dias[index];
+                temp_min.innerHTML = `${Math.floor(dados.list[valor].main.temp_min)}º`;
+            })
+            dias5_icon.forEach((_5dia, index) =>{
+                const valo = dias[index];
+                let iconCode = dados.list[valo].weather[0].icon
+
+                let iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+                _5dia.src = iconURL
+            })
+        })
+
+}
+
 
 function Proximas3H(lat, lon){
     const URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric&cnt=8`;
     fetch(URL)
         .then(res => res.json())
         .then(res => {
-            console.log(res.list[0])
-            desc = [...document.querySelectorAll('.hourly')]
+            
+            let desc = [...document.querySelectorAll('.hourly')]
             desc.forEach((descri, indice) =>{
                 descri.innerHTML = res.list[indice].weather[0].description
             })
@@ -192,7 +230,7 @@ function Proximas3H(lat, lon){
                 temperatura.innerHTML = `${Math.round(res.list[indice].main.temp)}º`;
             })
 
-            hours = [...document.querySelectorAll('.hour_3')]
+            let hours = [...document.querySelectorAll('.hour_3')]
             hours.forEach((hourElement, indice) => {
                 const item = res.list[indice];
                 if (!item) return;
@@ -206,7 +244,7 @@ function Proximas3H(lat, lon){
 
                 hourElement.innerHTML = horaFormatada;
             });
-            icones = [...document.querySelectorAll('#iconn')]
+            let icones = [...document.querySelectorAll('#iconn')]
             icones.forEach((icone, indice) =>{
                 let iconCode = res.list[indice].weather[0].icon
                 let iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -258,6 +296,7 @@ form.addEventListener('submit', (e)=>{
             console.log(lat, lon)
             Current_Weather_Data(lat, lon)
             Proximas3H(lat, lon)
+            next5Days(lat, lon)
         })
 })
 

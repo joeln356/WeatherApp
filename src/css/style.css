@@ -267,7 +267,7 @@ body{
   font-size: 13px; 
   text-align: center;
 }
-#tempoAgora, .city, .temperatura{
+#tempoAgora, .city, .temperatura, .temperaturas{
   color: var(--text-primary);
   font-weight: 700;
 }
@@ -336,4 +336,7 @@ body{
 .dia{
   color: var(--text-primary);
   font-weight: 500;
+}
+.dias5_icon{
+  width: 35px;
 }
