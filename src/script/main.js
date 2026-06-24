@@ -184,17 +184,22 @@ function next5Days(lat, lon){
         .then(res => res.json())
         .then(dados =>{
             console.log(dados)
-
+            const data = new Date()
+            console.log(data.getDay())
             const tempe_max = [...document.querySelectorAll('.temperaturas')]
             const temp_min = [...document.querySelectorAll('.temp_min')]
             const dias5_icon = [...document.querySelectorAll('.dias5_icon')]
-            const fiveDays = [...document.querySelectorAll('.dias')]
-
+            const fiveDays = [...document.querySelectorAll('.dia')]
+            
+            fiveDays.forEach((fiveday, index) => {
+                let num = data.getDay()+1+index
+                fiveday.innerHTML = week[num % 7];
+            })
             dias = [ 8, 16, 24, 32, 39]
 
             tempe_max.forEach((tempe_max, index) => {
                 const val = dias[index];
-                console.log(val)
+                
                 tempe_max.innerHTML = `${Math.round(dados.list[val].main.temp_max)}º`;
             });
 
@@ -304,7 +309,6 @@ const NY = `https://api.openweathermap.org/data/2.5/weather?lat=${40.7127281}&lo
 fetch(NY)
     .then(res => res.json())
     .then(dados => {
-        console.log(dados)
         document.getElementById('temp__1').innerHTML = `${Math.round(dados.main.temp)}º`;
         document.getElementById('desc__1').innerHTML = dados.weather[0].description;
         document.getElementById('city1').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
@@ -314,7 +318,6 @@ const Osaka = `https://api.openweathermap.org/data/2.5/weather?lat=${34.6937}&lo
 fetch(Osaka)
     .then(res => res.json())
     .then(dados => {
-        console.log(dados)
         document.getElementById('temp__2').innerHTML = `${Math.round(dados.main.temp)}º`;
         document.getElementById('desc__2').innerHTML = dados.weather[0].description;
         document.getElementById('city2').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
@@ -324,7 +327,6 @@ const Cape_Town = `https://api.openweathermap.org/data/2.5/weather?lat=${-33.924
 fetch(Cape_Town)
     .then(res => res.json())
     .then(dados => {
-        console.log(dados)
         document.getElementById('temp__3').innerHTML = `${Math.round(dados.main.temp)}º`;
         document.getElementById('desc__3').innerHTML = dados.weather[0].description;
         document.getElementById('city3').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
