@@ -340,3 +340,13 @@ body{
 .dias5_icon{
   width: 35px;
 }
+@media screen and (min-width:1024px) {
+  #dados{
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+  }
+  #dados > div {
+    min-width: 0;
+  }
+}
