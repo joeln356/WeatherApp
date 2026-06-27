@@ -172,6 +172,7 @@ Current_Weather_Data(lat, lon);
 
 Proximas3H(lat, lon)
 next5Days(lat, lon)
+UVINDEX(lat, lon)
 })
 
 // Obtendo o tempo atual
@@ -183,14 +184,18 @@ function next5Days(lat, lon){
     fetch(URL)
         .then(res => res.json())
         .then(dados =>{
-            console.log(dados)
+            
             const data = new Date()
-            console.log(data.getDay())
+            
             const tempe_max = [...document.querySelectorAll('.temperaturas')]
             const temp_min = [...document.querySelectorAll('.temp_min')]
             const dias5_icon = [...document.querySelectorAll('.dias5_icon')]
             const fiveDays = [...document.querySelectorAll('.dia')]
             
+            temperature_max = [];
+            temperature_min = [];
+             
+
             fiveDays.forEach((fiveday, index) => {
                 let num = data.getDay()+1+index
                 fiveday.innerHTML = week[num % 7];
@@ -201,21 +206,40 @@ function next5Days(lat, lon){
                 const val = dias[index];
                 
                 tempe_max.innerHTML = `${Math.round(dados.list[val].main.temp_max)}º`;
+                temperature_max.push(Math.round(dados.list[val].main.temp_max))
             });
-
+    
             temp_min.forEach((temp_min, index)=>{
                 const valor = dias[index];
                 temp_min.innerHTML = `${Math.floor(dados.list[valor].main.temp_min)}º`;
+                temperature_min.push(Math.floor(dados.list[valor].main.temp_min))
             })
+            const days = document.querySelectorAll('.day');
+            let global_min = Math.min(...temperature_min);
+            let global_max = Math.max(...temperature_max);
+            let range_total = global_max - global_min;
+            days.forEach((day, index) => {
+                const range = day.querySelector(".range");
+
+                let min = temperature_min[index];
+                let max = temperature_max[index];
+
+                let left = ((min - global_min) / range_total) * 100;
+                let  width = ((max - min) / range_total) * 100;
+                
+                range.style.left = left + "%";
+                range.style.width = width + "%";
+                width = Math.max(width, 2);
+            });
+
             dias5_icon.forEach((_5dia, index) =>{
                 const valo = dias[index];
                 let iconCode = dados.list[valo].weather[0].icon
-
+                
                 let iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
                 _5dia.src = iconURL
             })
         })
-
 }
 
 
@@ -264,14 +288,30 @@ function Current_Weather_Data(lat, lon){
     fetch(URL)
         .then(res => res.json())
         .then(res=>{
-            
+            console.log(res)
             document.getElementById('grau').innerHTML = `${Math.round(res.main.temp)}º`;
             document.getElementById('cidade').innerHTML = res.name
             document.getElementById('pais').innerHTML = res.sys.country
             document.getElementById('nomedoTempo').innerHTML = res.weather[0].description;
             
             document.getElementById('ventonum').innerHTML = `${res.wind.speed} m/s`;
+            document.getElementById('vento_3').innerHTML = res.wind.speed
+            
             document.getElementById('feeslike').innerHTML = `${Math.round(res.main.feels_like)}ºC`;
+
+            document.getElementById('humidade__3').innerHTML = `${res.main.humidity}%`;
+            if(res.main.humidity <= 30){
+                document.getElementById('shumidade').innerHTML = 'Low';
+            } else if(res.main.humidity <= 60){
+                document.getElementById('shumidade').innerHTML = 'Moderate';
+            } else if(res.main.humidity <= 80){
+                document.getElementById('shumidade').innerHTML = 'High';
+            }else if(res.main.humidity === undefined){
+                 document.getElementById('shumidade').innerHTML = 'Unavailable';
+            }else{
+                document.getElementById('shumidade').innerHTML = 'Very High';
+            }
+
             document.getElementById('humidade').innerHTML = `${res.main.humidity}%`;
             let visibilidade  = res.visibility / 1000;
             document.getElementById('visibilidade').innerHTML = `${visibilidade} Km`;
@@ -302,8 +342,29 @@ form.addEventListener('submit', (e)=>{
             Current_Weather_Data(lat, lon)
             Proximas3H(lat, lon)
             next5Days(lat, lon)
+            UVINDEX(lat, lon)
         })
 })
+function UVINDEX(lat, lon){
+    const url = `http://api.weatherapi.com/v1/current.json?key=417c92b7a2524a1a80d132025262706&q=${lat},${lon}`;
+
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById('UVin').innerHTML = data.current.uv
+        if(data.current.uv <=2){
+            document.getElementById('UVindextxt').innerHTML = 'Low';
+        }else if(data.current.uv <=5){
+            document.getElementById('UVindextxt').innerHTML = 'Moderate';
+        }else if(data.current.uv <=7){
+            document.getElementById('UVindextxt').innerHTML = 'High';
+        }else if(data.current.uv <=10){
+            document.getElementById('UVindextxt').innerHTML = 'Very High';
+        }else{
+            document.getElementById('UVindextxt').innerHTML = 'Extreme';
+        }
+    });
+}
 
 const NY = `https://api.openweathermap.org/data/2.5/weather?lat=${40.7127281}&lon=${-74.0060152}&appid=${APIkey}&units=metric`;
 fetch(NY)

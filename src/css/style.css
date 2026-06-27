@@ -262,7 +262,7 @@ body{
   width: 40px;
   height: 40px;
 }
-.hourly{
+.hourly, ._3{
   color: #ffffff66;
   font-size: 13px; 
   text-align: center;
@@ -312,18 +312,7 @@ body{
   padding: 10px 12px;
 }
 .bar {
-  position: relative;
-  width: 100%;
-  height: 6px;
-  background: #2a2f5a;
-  border-radius: 10px;
-  margin: 0 10px;
-}
-.range {
-  position: absolute;
-  height: 100%;
-  background: linear-gradient(to right, #4facfe, #a18cd1);
-  border-radius: 10px;
+  display: none;
 }
 .iD{
   display: flex;
@@ -340,6 +329,41 @@ body{
 .dias5_icon{
   width: 35px;
 }
+#tem_ven{
+  display: none;
+}
+._3caixa{
+  display: grid;
+  place-items: center;
+  
+}
+.numii{
+  color: var(--text-primary);
+  font-size: 25px;
+  font-weight: 700;
+}
+@media screen and (min-width:500px) {
+  .bar {
+    position: relative;
+    width: 40%;
+    height: 6px;
+    background: #2a2f5a;
+    border-radius: 10px;
+    margin: 0 10px;
+    display: block;
+  }
+  .range {
+    position: absolute;
+    height: 100%;
+    background: linear-gradient(to right, #4facfe, #a18cd1);
+    border-radius: 10px;
+  }
+  #tem_ven{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+}
 @media screen and (min-width:1024px) {
   #dados{
     display: grid;
@@ -348,5 +372,9 @@ body{
   }
   #dados > div {
     min-width: 0;
+  }
+  .day{
+    padding-right: 50px;
+    padding-left: 25px;
   }
 }
