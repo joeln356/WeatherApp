@@ -10,6 +10,9 @@ fahrenheit.addEventListener('click', ()=>{
     Current_Weather_Data(lat, lon);
     Proximas3H(lat, lon)
     next5Days(lat, lon)
+    GetWeatherCP()
+    GetWeatherNY()
+    GetWeatherJP()
     
 })
 celsius.addEventListener('click', ()=>{
@@ -20,6 +23,9 @@ celsius.addEventListener('click', ()=>{
     Current_Weather_Data(lat, lon);
     Proximas3H(lat, lon)
     next5Days(lat, lon)
+    GetWeatherCP()
+    GetWeatherNY()
+    GetWeatherJP()
 })
 
 // Particulas
@@ -240,8 +246,9 @@ function next5Days(lat, lon){
                 let  width = ((max - min) / range_total) * 100;
                 
                 range.style.left = left + "%";
-                range.style.width = width + "%";
                 width = Math.max(width, 2);
+                range.style.width = width + "%";
+                
             });
 
             dias5_icon.forEach((_5dia, index) =>{
@@ -302,7 +309,6 @@ function Current_Weather_Data(lat, lon){
     fetch(URL)
         .then(res => res.json())
         .then(res=>{
-            console.log(res)
             document.getElementById('grau').innerHTML = `${Math.round(res.main.temp)}º`;
             document.getElementById('cidade').innerHTML = res.name
             document.getElementById('pais').innerHTML = res.sys.country
@@ -381,8 +387,9 @@ function UVINDEX(lat, lon){
         }
     });
 }
-
-const NY = `https://api.openweathermap.org/data/2.5/weather?lat=${40.7127281}&lon=${-74.0060152}&appid=${APIkey}&units=metric`;
+function GetWeatherNY(){
+    let units = unidade === 'celsius' ? 'metric' : 'imperial'
+    const NY = `https://api.openweathermap.org/data/2.5/weather?lat=${40.7127281}&lon=${-74.0060152}&appid=${APIkey}&units=${units}`;
 fetch(NY)
     .then(res => res.json())
     .then(dados => {
@@ -390,21 +397,34 @@ fetch(NY)
         document.getElementById('desc__1').innerHTML = dados.weather[0].description;
         document.getElementById('city1').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
     })
+}
 
-const Osaka = `https://api.openweathermap.org/data/2.5/weather?lat=${34.6937}&lon=${135.5023}&appid=${APIkey}&units=metric`;
-fetch(Osaka)
-    .then(res => res.json())
-    .then(dados => {
-        document.getElementById('temp__2').innerHTML = `${Math.round(dados.main.temp)}º`;
-        document.getElementById('desc__2').innerHTML = dados.weather[0].description;
-        document.getElementById('city2').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
-    })
+function GetWeatherJP(){
+    let units = unidade === 'celsius' ? 'metric' : 'imperial'
 
-const Cape_Town = `https://api.openweathermap.org/data/2.5/weather?lat=${-33.9249}&lon=${18.4241}&appid=${APIkey}&units=metric`;
-fetch(Cape_Town)
-    .then(res => res.json())
-    .then(dados => {
-        document.getElementById('temp__3').innerHTML = `${Math.round(dados.main.temp)}º`;
-        document.getElementById('desc__3').innerHTML = dados.weather[0].description;
-        document.getElementById('city3').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
-    })
+    const Osaka = `https://api.openweathermap.org/data/2.5/weather?lat=${34.6937}&lon=${135.5023}&appid=${APIkey}&units=${units}`;
+    fetch(Osaka)
+        .then(res => res.json())
+        .then(dados => {
+            console.log()
+            document.getElementById('temp__2').innerHTML = `${Math.round(dados.main.temp)}º`;
+            document.getElementById('desc__2').innerHTML = dados.weather[0].description;
+            document.getElementById('city2').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
+        })
+}
+
+function GetWeatherCP(){
+    let units = unidade === 'celsius' ? 'metric' : 'imperial'
+    const Cape_Town = `https://api.openweathermap.org/data/2.5/weather?lat=${-33.9249}&lon=${18.4241}&appid=${APIkey}&units=${units}`;
+    fetch(Cape_Town)
+        .then(res => res.json())
+        .then(dados => {
+            document.getElementById('temp__3').innerHTML = `${Math.round(dados.main.temp)}º`;
+            document.getElementById('desc__3').innerHTML = dados.weather[0].description;
+            document.getElementById('city3').src = `https://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
+        })
+}
+
+GetWeatherCP()
+GetWeatherNY()
+GetWeatherJP()

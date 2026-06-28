@@ -242,6 +242,7 @@ body{
   overflow-x: scroll;
   margin-top: 15px;
   gap: 15px;
+  text-align: center;
 }
 .proximasH{
   border: 1px solid #ffffff14;
