@@ -1,14 +1,25 @@
 // Cores no SetGraus
 const celsius = document.querySelector('#celsius');
 const fahrenheit = document.querySelector('#fahrenheit');
-
+let unidade = 'celsius'
 fahrenheit.addEventListener('click', ()=>{
     fahrenheit.classList.add('grauAtivo')
     celsius.classList.remove('grauAtivo')
+    unidade = 'fahrenheit'
+    console.log(unidade)
+    Current_Weather_Data(lat, lon);
+    Proximas3H(lat, lon)
+    next5Days(lat, lon)
+    
 })
 celsius.addEventListener('click', ()=>{
     celsius.classList.add('grauAtivo');
     fahrenheit.classList.remove('grauAtivo');
+    unidade = 'celsius'
+    console.log(unidade)
+    Current_Weather_Data(lat, lon);
+    Proximas3H(lat, lon)
+    next5Days(lat, lon)
 })
 
 // Particulas
@@ -169,7 +180,6 @@ document.getElementById('pais').innerHTML = dados.country
 lat = dados.lat
 lon = dados.lon
 Current_Weather_Data(lat, lon);
-
 Proximas3H(lat, lon)
 next5Days(lat, lon)
 UVINDEX(lat, lon)
@@ -179,8 +189,10 @@ UVINDEX(lat, lon)
 const APIkey = 'acd126cb1b8c63520fa45c6f0f32164a'
 
 function next5Days(lat, lon){
-    const URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric`
+    let units = unidade === 'celsius' ? 'metric' : 'imperial'
 
+    const URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}&units=${units}`
+    
     fetch(URL)
         .then(res => res.json())
         .then(dados =>{
@@ -244,7 +256,8 @@ function next5Days(lat, lon){
 
 
 function Proximas3H(lat, lon){
-    const URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric&cnt=8`;
+    let units = unidade === 'celsius' ? 'metric' : 'imperial'
+    const URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}&units=${units}&cnt=8`;
     fetch(URL)
         .then(res => res.json())
         .then(res => {
@@ -284,7 +297,8 @@ function Proximas3H(lat, lon){
 }
 
 function Current_Weather_Data(lat, lon){
-    const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}&units=metric`;
+    let units = unidade === 'celsius' ? 'metric' : 'imperial'
+    const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}&units=${units}`;
     fetch(URL)
         .then(res => res.json())
         .then(res=>{
@@ -293,11 +307,13 @@ function Current_Weather_Data(lat, lon){
             document.getElementById('cidade').innerHTML = res.name
             document.getElementById('pais').innerHTML = res.sys.country
             document.getElementById('nomedoTempo').innerHTML = res.weather[0].description;
-            
-            document.getElementById('ventonum').innerHTML = `${res.wind.speed} m/s`;
+            let v = units === 'metric' ? 'm/s' : "mph"
+            document.getElementById('v').innerHTML = `${v}`
+            document.getElementById('ventonum').innerHTML = `${res.wind.speed} ${v}`;
             document.getElementById('vento_3').innerHTML = res.wind.speed
             
-            document.getElementById('feeslike').innerHTML = `${Math.round(res.main.feels_like)}ºC`;
+            let ap = units === 'metric' ? 'ºC' : "ºF"
+            document.getElementById('feeslike').innerHTML = `${Math.round(res.main.feels_like)}${ap}`;
 
             document.getElementById('humidade__3').innerHTML = `${res.main.humidity}%`;
             if(res.main.humidity <= 30){
