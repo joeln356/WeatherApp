@@ -176,20 +176,19 @@ iniciarRelogio();
 let lat = null
 let lon = null
 
-fetch('http://ip-api.com/json/')
+fetch('https://ipapi.co/json/')
     .then(res => res.json())
     .then(dados => {
+        document.getElementById('cidade').innerHTML = dados.city
+        document.getElementById('pais').innerHTML = dados.country_name  
 
-document.getElementById('cidade').innerHTML = dados.city
-document.getElementById('pais').innerHTML = dados.country
-
-lat = dados.lat
-lon = dados.lon
-Current_Weather_Data(lat, lon);
-Proximas3H(lat, lon)
-next5Days(lat, lon)
-UVINDEX(lat, lon)
-})
+        lat = dados.latitude
+        lon = dados.longitude
+        Current_Weather_Data(lat, lon);
+        Proximas3H(lat, lon)
+        next5Days(lat, lon)
+        UVINDEX(lat, lon)
+    })
 
 // Obtendo o tempo atual
 const APIkey = 'acd126cb1b8c63520fa45c6f0f32164a'
