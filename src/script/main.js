@@ -176,20 +176,45 @@ iniciarRelogio();
 let lat = null
 let lon = null
 
-fetch('https://ipapi.co/json/')
-    .then(res => res.json())
-    .then(dados => {
-        document.getElementById('cidade').innerHTML = dados.city
-        document.getElementById('pais').innerHTML = dados.country_name  
+// fetch('https://ipapi.co/json/')
+//     .then(res => res.json())
+//     .then(dados => {
+//         document.getElementById('cidade').innerHTML = dados.city
+//         document.getElementById('pais').innerHTML = dados.country_name  
 
-        lat = dados.latitude
-        lon = dados.longitude
-        Current_Weather_Data(lat, lon);
-        Proximas3H(lat, lon)
-        next5Days(lat, lon)
-        UVINDEX(lat, lon)
-    })
+//         lat = dados.latitude
+//         lon = dados.longitude
+//         Current_Weather_Data(lat, lon);
+        
+//     })
 
+fetch('https://free.freeipapi.com/api/json')
+  .then(res => {
+    if (!res.ok) throw new Error('Rate limit ou erro na API');
+    return res.json();
+  })
+  .then(dados => {
+    console.log(dados);
+    document.getElementById('cidade').innerHTML = dados.cityName;
+    console.log(dados.countryName)
+    document.getElementById('pais').innerHTML = dados.countryName;
+    
+    const lat = dados.latitude;
+    const lon = dados.longitude;
+    
+    Current_Weather_Data(lat, lon);
+    Proximas3H(lat, lon)
+    next5Days(lat, lon)
+    UVINDEX(lat, lon)
+  })
+  .catch(err => {
+
+    // Fallback: cidade padrão
+    Current_Weather_Data(-23.55, -46.63); // São Paulo
+    Proximas3H(-23.55, -46.63)
+    next5Days(-23.55, -46.63)
+    UVINDEX(-23.55, -46.63)
+  });
 // Obtendo o tempo atual
 const APIkey = 'acd126cb1b8c63520fa45c6f0f32164a'
 
@@ -309,8 +334,6 @@ function Current_Weather_Data(lat, lon){
         .then(res => res.json())
         .then(res=>{
             document.getElementById('grau').innerHTML = `${Math.round(res.main.temp)}º`;
-            document.getElementById('cidade').innerHTML = res.name
-            document.getElementById('pais').innerHTML = res.sys.country
             document.getElementById('nomedoTempo').innerHTML = res.weather[0].description;
             let v = units === 'metric' ? 'm/s' : "mph"
             document.getElementById('v').innerHTML = `${v}`
