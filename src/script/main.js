@@ -334,6 +334,8 @@ function Current_Weather_Data(lat, lon){
         .then(res => res.json())
         .then(res=>{
             document.getElementById('grau').innerHTML = `${Math.round(res.main.temp)}º`;
+            document.getElementById('cidade').innerHTML = res.name
+            document.getElementById('pais').innerHTML = res.sys.country
             document.getElementById('nomedoTempo').innerHTML = res.weather[0].description;
             let v = units === 'metric' ? 'm/s' : "mph"
             document.getElementById('v').innerHTML = `${v}`
