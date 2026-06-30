@@ -194,9 +194,7 @@ fetch('https://free.freeipapi.com/api/json')
     return res.json();
   })
   .then(dados => {
-    console.log(dados);
     document.getElementById('cidade').innerHTML = dados.cityName;
-    console.log(dados.countryName)
     document.getElementById('pais').innerHTML = dados.countryName;
     
     const lat = dados.latitude;
@@ -392,7 +390,7 @@ form.addEventListener('submit', (e)=>{
         })
 })
 function UVINDEX(lat, lon){
-    const url = `http://api.weatherapi.com/v1/current.json?key=417c92b7a2524a1a80d132025262706&q=${lat},${lon}`;
+    const url = `https://api.weatherapi.com/v1/current.json?key=417c92b7a2524a1a80d132025262706&q=${lat},${lon}`;
 
     fetch(url)
     .then(res => res.json())
